@@ -1,0 +1,64 @@
+# depslib dependency file v1.0
+1457613133 source:/home/rao/Desktop/lab/lab/lab/main.c
+	<stdio.h>
+	<string.h>
+
+1458140071 source:/home/rao/Desktop/lab/lab/lab/fork1.c
+	<sys/types.h>
+	<unistd.h>
+	<stdio.h>
+
+1457947397 source:/home/rao/Desktop/lab/lab/lab/fork2.c
+	<sys/types.h>
+	<unistd.h>
+	<stdio.h>
+
+1457618166 source:/home/rao/Desktop/lab/lab/lab/exec1.c
+	<unistd.h>
+	<stdio.h>
+
+1458140026 source:/home/rao/Desktop/lab/lab/lab/readwrite1.c
+	<fcntl.h>
+	<unistd.h>
+
+1457800708 source:/home/rao/Desktop/lab/lab/lab/lssk1.c
+	<sys/types.h>
+	<fcntl.h>
+	<unistd.h>
+	<stdio.h>
+
+1457848358 source:/home/rao/Desktop/lab/lab/lab/signal1.c
+	<stdio.h>
+	<signal.h>
+
+1457846111 source:/home/rao/Desktop/lab/lab/lab/hostalias.c
+	<stdio.h>
+	<netdb.h>
+	<stdlib.h>
+	<sys/types.h>
+
+1458187414 source:/home/rao/Desktop/lab/lab/lab/readwritetest1.c
+	<fcntl.h>
+	<unistd.h>
+	<string.h>
+
+1458139971 source:/home/rao/Desktop/lab/lab/test/append_lssk.c
+	<fcntl.h>
+	<unistd.h>
+	<string.h>
+
+1458140010 source:/home/rao/Desktop/lab/lab/lab/append_lssk.c
+	<fcntl.h>
+	<unistd.h>
+	<string.h>
+
+1458230491 source:/home/rao/Desktop/lab/lab/lab/lab.c
+	<fcntl.h>
+	<unistd.h>
+	<string.h>
+
+1458553174 source:/home/rao/Desktop/lab/lab/lab/lab2.c
+	<fcntl.h>
+	<unistd.h>
+	<string.h>
+

@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1458187254 source:/home/rao/Desktop/lab/lab/lab4/byteorder.c
+	<stdio.h>
+	<sys/types.h>
+	<stdlib.h>
+
+1458187225 source:/home/rao/Desktop/lab/lab/lab4/main.cpp
+	<iostream>
+
+1458231186 source:/home/rao/Desktop/lab/lab/lab4/hostalias.c
+	<stdio.h>
+	<netdb.h>
+	<stdlib.h>
+	<sys/types.h>
+
+1458551590 source:/home/rao/Desktop/lab/lab/lab4/lab.c
+	<arpa/inet.h>
+	<netdb.h>
+	<stdlib.h>
+	<sys/types.h>
+	<stdio.h>
+
+1458552098 source:/home/rao/Desktop/lab/lab/lab4/lab2.c
+	<arpa/inet.h>
+	<netdb.h>
+	<stdlib.h>
+	<sys/types.h>
+	<stdio.h>
+
