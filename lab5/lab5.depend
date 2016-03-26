@@ -1,0 +1,29 @@
+# depslib dependency file v1.0
+1458811232 source:/home/rao/Desktop/lab/lab/lab5/main.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/socket.h>
+
+1458825744 source:/home/rao/Desktop/lab/lab/lab5/client.c
+	<unistd.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<arpa/inet.h>
+	<stdlib.h>
+	<stdio.h>
+	<errno.h>
+	<string.h>
+
+1458825696 source:/home/rao/Desktop/lab/lab/lab5/server.c
+	<stdio.h>
+	<stdlib.h>
+	<unistd.h>
+	<errno.h>
+	<sys/types.h>
+	<sys/socket.h>
+	<netinet/in.h>
+	<string.h>
+

@@ -2,12 +2,12 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6" />
 	<Project>
-		<Option title="lab4" />
+		<Option title="lab5" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="Debug">
-				<Option output="bin/Debug/lab4" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Debug/lab5" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -16,7 +16,7 @@
 				</Compiler>
 			</Target>
 			<Target title="Release">
-				<Option output="bin/Release/lab4" prefix_auto="1" extension_auto="1" />
+				<Option output="bin/Release/lab5" prefix_auto="1" extension_auto="1" />
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -30,21 +30,10 @@
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
-			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="byteorder.c">
+		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="hostalias.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="lab.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="lab2.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="main.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />
