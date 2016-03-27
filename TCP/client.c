@@ -73,6 +73,15 @@ int main(int argc,char *argv[])
         return 2;
     }
     inet_ntop(p->ai_family,get_in_addr((struct sockaddr *)p->ai_addr),s,sizeof(s));
+    printf("client: connecting to %s\n",s);
+
+    freeaddrinfo(servinfo);// all done with this structure
+
+    if((numbytes = recv(sockfd, buf, MAXDATASIZE-1,0)) == -1) {
+        perror("recv");
+        exit(1);
+    }
+    buf[numbytes] = '\0';
     printf("client: received '%s'\n",buf);
 
     close(sockfd);

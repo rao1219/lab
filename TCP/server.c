@@ -80,8 +80,6 @@ int main()
         break;
     }
 
-    freeaddrinfo(servinfo);
-
     if(p == NULL){
         fprintf(stderr,"server failed to bind\n");
         exit(1);
@@ -100,6 +98,7 @@ int main()
     }
 
     printf("server: waiting for connections...\n");
+    freeaddrinfo(servinfo);
 
     while(1){ // main accept loop
         sin_size  = sizeof(their_addr);
