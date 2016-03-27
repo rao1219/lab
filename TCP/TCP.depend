@@ -1,12 +1,15 @@
 # depslib dependency file v1.0
-1458991988 source:/home/rao/Desktop/lab/lab/TCP/server.c
+1459021547 source:/home/rao/Desktop/lab/lab/TCP/server.c
 	<stdio.h>
 	<stdlib.h>
-	<netdb.h>
-	<sys/socket.h>
-	<netinet/in.h>
-	<arpa/inet.h>
+	<unistd.h>
+	<errno.h>
+	<string.h>
 	<sys/types.h>
 	<sys/socket.h>
-	<string.h>
+	<netinet/in.h>
+	<netdb.h>
+	<arpa/inet.h>
+	<sys/wait.h>
+	<signal.h>
 
