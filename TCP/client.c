@@ -48,7 +48,7 @@ int main(int argc,char *argv[])
     hints.ai_family = AF_UNSPEC;
     hints.ai_socktype = SOCK_STREAM;
 
-    if((rv = getaddrinfo(NULL, PORT , &hints, &servinfo))!=0){
+    if((rv = getaddrinfo(argv[1], PORT , &hints, &servinfo))!=0){
         fprintf(stderr,"getaddrinfo: %s\n",gai_strerror(rv));
         return 1;
     }
