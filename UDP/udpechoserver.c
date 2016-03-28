@@ -57,6 +57,7 @@ int main(int argc,char *argv[])
             exit(1);
         }
         /* Send received datagram back to the client */
+        printf("From %s\n",inet_ntoa((struct in_addr)echoClntAddr.sin_addr));
         printf("%s\n",echoBuffer);
         if((sendto(sock,echoBuffer,recvMsgSize,0,(struct sockaddr *)&echoClntAddr,sizeof(echoClntAddr)))!= recvMsgSize)
         {
