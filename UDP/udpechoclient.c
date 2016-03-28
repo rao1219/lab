@@ -73,8 +73,9 @@ int main(int argc,char *argv[])
 
     if(echoServAddr.sin_addr.s_addr != fromAddr.sin_addr.s_addr)
     {
+        printf("%s\n%s\n",inet_ntoa((struct in_addr)echoServAddr.sin_addr),inet_ntoa((struct in_addr)fromAddr.sin_addr));
         printf("Error: received a packet from unknown source.\n");
-        exit(1);
+        //exit(1);
     }
 
     /* null-terminate the received data */

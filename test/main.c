@@ -1,68 +1,86 @@
-/*************************************************************************
-    > File Name: echocli_udp.c
-    > Author: Simba
-    > Mail: dameng34@163.com
-    > Created Time: Sun 03 Mar 2013 06:13:55 PM CST
- ************************************************************************/
+/*
+ 发啥返回啥
+*/
 
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <string.h>
+#include<stdio.h>
+#include<sys/socket.h>
+#include<arpa/inet.h>
+#include<stdlib.h>
+#include<string.h>
+#include<unistd.h>
 
-#define ERR_EXIT(m) \
-        do \
-        { \
-                perror(m); \
-                exit(EXIT_FAILURE); \
-        } while(0)
+#define ECHOMAX 255 // longest string to echo
 
-void echo_cli(int sock)
-{
-    struct sockaddr_in servaddr;
-    memset(&servaddr, 0, sizeof(servaddr));
-    servaddr.sin_family = AF_INET;
-    servaddr.sin_port = htons(5188);
-    servaddr.sin_addr.s_addr = inet_addr("127.0.0.1");
-
-    int ret;
-    char sendbuf[1024] = {0};
-    char recvbuf[1024] = {0};
-    while (fgets(sendbuf, sizeof(sendbuf), stdin) != NULL)
-    {
-
-        sendto(sock, sendbuf, strlen(sendbuf), 0, (struct sockaddr *)&servaddr, sizeof(servaddr));
-
-        ret = recvfrom(sock, recvbuf, sizeof(recvbuf), 0, NULL, NULL);
-        if (ret == -1)
-        {
-            if (errno == EINTR)
-                continue;
-            ERR_EXIT("recvfrom");
-        }
-
-        fputs(recvbuf, stdout);
-        memset(sendbuf, 0, sizeof(sendbuf));
-        memset(recvbuf, 0, sizeof(recvbuf));
-    }
-
-    close(sock);
-
-
-}
-
-int main(void)
+int main(int argc,char *argv[])
 {
     int sock;
-    if ((sock = socket(PF_INET, SOCK_DGRAM, 0)) < 0)
-        ERR_EXIT("socket");
+    struct sockaddr_in echoServAddr;// echo server address
+    struct sockaddr_in fromAddr;//source address of echo
+    unsigned short echoServPort;
+    unsigned int fromSize;// in-out of address size from recvfrom()
 
-    echo_cli(sock);
+    char *servIP;
+    char *echoString;
+    char echoBuffer[ECHOMAX+1];
 
-    return 0;
+    int echoStringLen;
+    int resStringLen;
+
+    if((argc < 3)|| (argc > 4))
+    {
+        printf("Useage: %s <Server IP> <Echo Word> [<Echo Port>]\n",argv[0]);
+        exit(1);
+    }
+
+    servIP = argv[1];
+    echoString = argv[2];
+    if((echoStringLen = strlen(echoString)) > ECHOMAX)
+    {
+        printf("Echo word too long!\n");
+        exit(1);
+    }
+
+    if(argc == 4)
+        echoServPort = atoi(argv[3]);
+    else
+        echoServPort = 7; // 7 is the well-known port for echo service
+
+    /* Create a datagram/UDP socket */
+    if( (sock = socket(PF_INET,SOCK_DGRAM,IPPROTO_UDP)) <0 )
+    {
+        printf("socket() failed.\n");
+        exit(1);
+    }
+
+    /* Construct the server address structure */
+    memset(&echoServAddr,0,sizeof(echoServAddr));
+    echoServAddr.sin_family = AF_INET;
+    echoServAddr.sin_port = htons(echoServPort);
+
+    /* Send the string to the server */
+    if((sendto(sock,echoString,echoStringLen,0,(struct sockaddr *)&echoServAddr,sizeof(echoServAddr))) != echoStringLen)
+    {
+        printf("sendto() sent a different number of bytes than expected");
+        exit(1);
+    }
+
+    /* Recv a response */
+    fromSize = sizeof(fromAddr);
+    if((resStringLen = recvfrom(sock,echoBuffer,ECHOMAX,0,(struct sockaddr *)&fromAddr,&fromSize)) !=echoStringLen)
+    {
+        printf("recvfrom() failed\n");
+    }
+
+    if(echoServAddr.sin_addr.s_addr != fromAddr.sin_addr.s_addr)
+    {
+        printf("%s\n%s\n",inet_ntoa((struct in_addr)echoServAddr.sin_addr),inet_ntoa((struct in_addr)fromAddr.sin_addr));
+        printf("Error: received a packet from unknown source.\n");
+        //exit(1);
+    }
+
+    /* null-terminate the received data */
+    echoBuffer[resStringLen] = '\0';
+    printf("Received :%s\n",echoBuffer);
+    close(sock);
+    exit(0);
 }

@@ -1,6 +1,9 @@
 # depslib dependency file v1.0
-1458814732 source:/home/rao/Desktop/lab/lab/test/main.c
-	<fcntl.h>
-	<unistd.h>
+1459171558 source:/home/rao/Desktop/lab/lab/test/main.c
+	<stdio.h>
+	<sys/socket.h>
+	<arpa/inet.h>
+	<stdlib.h>
 	<string.h>
+	<unistd.h>
 

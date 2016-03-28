@@ -45,7 +45,7 @@ int main(int argc,char *argv[])
         printf("bind() failed.\n");
         exit(1);
     }
-
+    printf("Waiting for connection...\n");
     while(1)
     {
         /* Set the size of the in-out parameter */
@@ -57,6 +57,7 @@ int main(int argc,char *argv[])
             exit(1);
         }
         /* Send received datagram back to the client */
+        printf("%s\n",echoBuffer);
         if((sendto(sock,echoBuffer,recvMsgSize,0,(struct sockaddr *)&echoClntAddr,sizeof(echoClntAddr)))!= recvMsgSize)
         {
             printf("sendto() sent a different number of bytes than expected.\n");
