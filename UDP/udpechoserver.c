@@ -1,6 +1,6 @@
 // 不好玩
 #include<stdio.h>
-#include<sys/sys/socket.h>
+#include<sys/socket.h>
 #include<arpa/inet.h>
 #include<stdlib.h>
 #include<string.h>
@@ -50,6 +50,18 @@ int main(int argc,char *argv[])
     {
         /* Set the size of the in-out parameter */
         cliAddrLen = sizeof(echoClntAddr);
+        /* Block until receive message from a client */
+        if((recvMsgSize = recvfrom(sock, echoBuffer, ECHOMAX,0,(struct sockaddr *)&echoClntAddr,&cliAddrLen))<0)
+        {
+            printf("recvfrom() failed.\n");
+            exit(1);
+        }
+        /* Send received datagram back to the client */
+        if((sendto(sock,echoBuffer,recvMsgSize,0,(struct sockaddr *)&echoClntAddr,sizeof(echoClntAddr)))!= recvMsgSize)
+        {
+            printf("sendto() sent a different number of bytes than expected.\n");
+            exit(1);
+        }
 
     }
 

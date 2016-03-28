@@ -28,13 +28,13 @@ int main(int argc,char *argv[])
 
     if((argc < 3)|| (argc > 4))
     {
-        printf("Useage: %s <Server IP> <Echo Word> [<Echo Port>]\n");
+        printf("Useage: %s <Server IP> <Echo Word> [<Echo Port>]\n",argv[0]);
         exit(1);
     }
 
     servIP = argv[1];
     echoString = argv[2];
-    if((echoStringLen = strnlen(echoString)) > ECHOMAX)
+    if((echoStringLen = strlen(echoString)) > ECHOMAX)
     {
         printf("Echo word too long!\n");
         exit(1);
