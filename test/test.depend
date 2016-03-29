@@ -1,9 +1,13 @@
 # depslib dependency file v1.0
-1459173580 source:/home/rao/Desktop/lab/lab/test/main.c
+1459230269 source:/home/rao/Desktop/lab/lab/test/main.c
 	<stdio.h>
 	<sys/socket.h>
 	<arpa/inet.h>
 	<stdlib.h>
 	<string.h>
 	<unistd.h>
+
+1459230572 source:/home/rao/Desktop/lab/lab/test/teststr.c
+	<stdio.h>
+	<string.h>
 

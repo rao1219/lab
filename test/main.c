@@ -26,22 +26,16 @@ int main(int argc,char *argv[])
     int echoStringLen;
     int resStringLen;
 
-    if((argc < 3)|| (argc > 4))
+    if((argc < 2)|| (argc > 3))
     {
-        printf("Useage: %s <Server IP> <Echo Word> [<Echo Port>]\n",argv[0]);
+        printf("Useage: %s <Server IP> [<Echo Port>]\n",argv[0]);
         exit(1);
     }
 
     servIP = argv[1];
-    echoString = argv[2];
-    if((echoStringLen = strlen(echoString)) > ECHOMAX)
-    {
-        printf("Echo word too long!\n");
-        exit(1);
-    }
 
     if(argc == 4)
-        echoServPort = atoi(argv[3]);
+        echoServPort = atoi(argv[2]);
     else
         echoServPort = 7; // 7 is the well-known port for echo service
 
@@ -57,30 +51,37 @@ int main(int argc,char *argv[])
     echoServAddr.sin_family = AF_INET;
     echoServAddr.sin_port = htons(echoServPort);
 
-    /* Send the string to the server */
-    if((sendto(sock,echoString,echoStringLen,0,(struct sockaddr *)&echoServAddr,sizeof(echoServAddr))) != echoStringLen)
-    {
-        printf("sendto() sent a different number of bytes than expected");
-        exit(1);
-    }
+    while(scanf("%s",echoString)){
+        /* Send the string to the server */
+        if((echoStringLen = strlen(echoString)) > ECHOMAX)
+        {
+            printf("Echo word too long!\n");
+            exit(1);
+        }
+        if((sendto(sock,echoString,echoStringLen,0,(struct sockaddr *)&echoServAddr,sizeof(echoServAddr))) != echoStringLen)
+        {
+            printf("sendto() sent a different number of bytes than expected");
+            exit(1);
+        }
 
-    /* Recv a response */
-    fromSize = sizeof(fromAddr);
-    if((resStringLen = recvfrom(sock,echoBuffer,ECHOMAX,0,(struct sockaddr *)&fromAddr,&fromSize)) !=echoStringLen)
-    {
-        printf("recvfrom() failed\n");
-    }
+        /* Recv a response */
+        fromSize = sizeof(fromAddr);
+        if((resStringLen = recvfrom(sock,echoBuffer,ECHOMAX,0,(struct sockaddr *)&fromAddr,&fromSize)) !=echoStringLen)
+        {
+            printf("recvfrom() failed\n");
+        }
 
-    if(echoServAddr.sin_addr.s_addr != fromAddr.sin_addr.s_addr)
-    {
-        printf("%d\n%d\n",echoServAddr.sin_addr.s_addr,fromAddr.sin_addr.s_addr);
-        printf("Error: received a packet from unknown source.\n");
-        //exit(1);
-    }
+        if(echoServAddr.sin_addr.s_addr != fromAddr.sin_addr.s_addr)
+        {
+            printf("%s\n%s\n",inet_ntoa((struct in_addr)echoServAddr.sin_addr),inet_ntoa((struct in_addr)fromAddr.sin_addr));
+            printf("Error: received a packet from unknown source.\n");
+            //exit(1);
+        }
 
-    /* null-terminate the received data */
-    echoBuffer[resStringLen] = '\0';
-    printf("Received :%s\n",echoBuffer);
+        /* null-terminate the received data */
+        echoBuffer[resStringLen] = '\0';
+        printf("Received :%s\n",echoBuffer);
+    }
     close(sock);
     exit(0);
 }

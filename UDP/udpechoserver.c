@@ -48,6 +48,7 @@ int main(int argc,char *argv[])
     printf("Waiting for connection...\n");
     while(1)
     {
+        memset(echoBuffer,0,sizeof(echoBuffer));
         /* Set the size of the in-out parameter */
         cliAddrLen = sizeof(echoClntAddr);
         /* Block until receive message from a client */
