@@ -69,7 +69,7 @@ int main(int argc,char *argv[])
     }
 
     if(p == NULL) {
-        fprintf(stderr,"client: failed to connet\n");
+        fprintf(stderr,"client: failed to connect\n");
         return 2;
     }
     inet_ntop(p->ai_family,get_in_addr((struct sockaddr *)p->ai_addr),s,sizeof(s));

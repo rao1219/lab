@@ -16,17 +16,17 @@ int main(int argc,char *argv[])
     int sock;
     struct sockaddr_in echoServAddr;// echo server address
     struct sockaddr_in fromAddr;//source address of echo
-    unsigned short echoServPort;
+    unsigned short echoServPort ;
     unsigned int fromSize;// in-out of address size from recvfrom()
 
-    char *servIP;
-    char *echoString;
+    char *servIP = malloc(ECHOMAX*sizeof(char));
+    char *echoString = malloc(ECHOMAX*sizeof(char));
     char echoBuffer[ECHOMAX+1];
 
     int echoStringLen;
     int resStringLen;
 
-    if((argc < 2)|| (argc > 3))
+    if(argc>2)
     {
         printf("Useage: %s <Server IP> [<Echo Port>]\n",argv[0]);
         exit(1);
@@ -34,8 +34,8 @@ int main(int argc,char *argv[])
 
     servIP = argv[1];
 
-    if(argc == 4)
-        echoServPort = atoi(argv[2]);
+    if(argc == 2)
+        echoServPort = atoi(argv[1]);
     else
         echoServPort = 7; // 7 is the well-known port for echo service
 
@@ -49,7 +49,9 @@ int main(int argc,char *argv[])
     /* Construct the server address structure */
     memset(&echoServAddr,0,sizeof(echoServAddr));
     echoServAddr.sin_family = AF_INET;
+    echoServAddr.sin_addr.s_addr = inet_addr(servIP);
     echoServAddr.sin_port = htons(echoServPort);
+    printf("port number:%d\n",echoServPort);
 
     while(scanf("%s",echoString)){
         /* Send the string to the server */
@@ -60,8 +62,8 @@ int main(int argc,char *argv[])
         }
         if((sendto(sock,echoString,echoStringLen,0,(struct sockaddr *)&echoServAddr,sizeof(echoServAddr))) != echoStringLen)
         {
-            printf("sendto() sent a different number of bytes than expected");
-            exit(1);
+            perror("sendto() sent a different number of bytes than expected");
+            //exit(1);
         }
 
         /* Recv a response */
@@ -75,7 +77,7 @@ int main(int argc,char *argv[])
         {
             printf("%s\n%s\n",inet_ntoa((struct in_addr)echoServAddr.sin_addr),inet_ntoa((struct in_addr)fromAddr.sin_addr));
             printf("Error: received a packet from unknown source.\n");
-            //exit(1);
+            exit(1);
         }
 
         /* null-terminate the received data */

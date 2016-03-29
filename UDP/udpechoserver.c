@@ -54,15 +54,15 @@ int main(int argc,char *argv[])
         /* Block until receive message from a client */
         if((recvMsgSize = recvfrom(sock, echoBuffer, ECHOMAX,0,(struct sockaddr *)&echoClntAddr,&cliAddrLen))<0)
         {
-            printf("recvfrom() failed.\n");
+            perror("recvfrom() failed.\n");
             exit(1);
         }
         /* Send received datagram back to the client */
-        printf("From %s\n",inet_ntoa((struct in_addr)echoClntAddr.sin_addr));
-        printf("%s\n",echoBuffer);
+        printf("From %s\t",inet_ntoa((struct in_addr)echoClntAddr.sin_addr));
+        printf("Message:%s\n",echoBuffer);
         if((sendto(sock,echoBuffer,recvMsgSize,0,(struct sockaddr *)&echoClntAddr,sizeof(echoClntAddr)))!= recvMsgSize)
         {
-            printf("sendto() sent a different number of bytes than expected.\n");
+            perror("sendto() sent a different number of bytes than expected.\n");
             exit(1);
         }
 
