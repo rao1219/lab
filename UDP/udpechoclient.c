@@ -49,6 +49,7 @@ int main(int argc,char *argv[])
     /* Construct the server address structure */
     memset(&echoServAddr,0,sizeof(echoServAddr));
     echoServAddr.sin_family = AF_INET;
+    echoServAddr.sin_addr.s_addr = inet_addr(servIP);
     echoServAddr.sin_port = htons(echoServPort);
 
     while(scanf("%s",echoString)){
@@ -75,7 +76,7 @@ int main(int argc,char *argv[])
         {
             printf("%s\n%s\n",inet_ntoa((struct in_addr)echoServAddr.sin_addr),inet_ntoa((struct in_addr)fromAddr.sin_addr));
             printf("Error: received a packet from unknown source.\n");
-            //exit(1);
+            exit(1);
         }
 
         /* null-terminate the received data */
